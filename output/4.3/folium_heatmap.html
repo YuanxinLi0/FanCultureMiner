@@ -1,0 +1,828 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+    
+            <meta name="viewport" content="width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+            <style>
+                #map_6476e7bcd62b1f41dfc32bf3d356f783 {
+                    position: relative;
+                    width: 100.0%;
+                    height: 100.0%;
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+                .leaflet-container { font-size: 1rem; }
+            </style>
+
+            <style>html, body {
+                width: 100%;
+                height: 100%;
+                margin: 0;
+                padding: 0;
+            }
+            </style>
+
+            <style>#map {
+                position:absolute;
+                top:0;
+                bottom:0;
+                right:0;
+                left:0;
+                }
+            </style>
+
+            <script>
+                L_NO_TOUCH = false;
+                L_DISABLE_3D = false;
+            </script>
+
+        
+    <script src="https://cdn.jsdelivr.net/gh/python-visualization/folium@main/folium/templates/leaflet_heat.min.js"></script>
+</head>
+<body>
+    
+    
+        <div style="position: fixed; 
+                    bottom: 50px; left: 50px; width: 250px; height: 160px; 
+                    background-color: white; border: 2px solid grey; z-index: 9999; 
+                    font-size: 13px; padding: 15px; border-radius: 5px; box-shadow: 0 0 10px rgba(0,0,0,0.3);">
+        <h4 style="margin-top: 0; color: #333;">粉丝控制策略图例</h4>
+        <p><span style="color: red; font-size: 16px;">●</span> 高风险区域 - 重点监控</p>
+        <p><span style="color: orange; font-size: 16px;">●</span> 中风险区域 - 适度关注</p>
+        <p><span style="color: green; font-size: 16px;">●</span> 低风险区域 - 维持现状</p>
+        <p style="font-size: 11px; color: #666; margin-top: 10px;">
+        圆圈大小 = 用户数量<br>
+        热力图强度 = 风险程度
+        </p>
+        </div>
+        
+    
+            <div class="folium-map" id="map_6476e7bcd62b1f41dfc32bf3d356f783" ></div>
+        
+</body>
+<script>
+    
+    
+            var map_6476e7bcd62b1f41dfc32bf3d356f783 = L.map(
+                "map_6476e7bcd62b1f41dfc32bf3d356f783",
+                {
+                    center: [35.8617, 104.1954],
+                    crs: L.CRS.EPSG3857,
+                    ...{
+  "zoom": 4,
+  "zoomControl": true,
+  "preferCanvas": false,
+}
+
+                }
+            );
+
+            
+
+        
+    
+            var tile_layer_cdc463758a98b5a52e2788cf505ce48e = L.tileLayer(
+                "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
+                {
+  "minZoom": 0,
+  "maxZoom": 19,
+  "maxNativeZoom": 19,
+  "noWrap": false,
+  "attribution": "\u0026copy; \u003ca href=\"https://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors",
+  "subdomains": "abc",
+  "detectRetina": false,
+  "tms": false,
+  "opacity": 1,
+}
+
+            );
+        
+    
+            tile_layer_cdc463758a98b5a52e2788cf505ce48e.addTo(map_6476e7bcd62b1f41dfc32bf3d356f783);
+        
+    
+            var circle_marker_98a3e29320160bf97a1acc0a8d8fb6df = L.circleMarker(
+                [36.6758, 117.0264],
+                {"bubblingMouseEvents": true, "color": "orange", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "orange", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 24.0, "stroke": true, "weight": 3}
+            ).addTo(map_6476e7bcd62b1f41dfc32bf3d356f783);
+        
+    
+        var popup_6b8e3ba31d4b7d17c27668891fadbc19 = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_0e4a9446fd8c41d9d504995c137d0dd0 = $(`<div id="html_0e4a9446fd8c41d9d504995c137d0dd0" style="width: 100.0%; height: 100.0%;">                 <div style="font-family: Arial; width: 280px;">                     <h3 style="margin-bottom: 10px; color: #333; text-align: center;">山东省粉丝分析</h3>                     <hr>                     <table style="width: 100%; border-collapse: collapse; font-size: 12px;">                         <tr><td><b>用户总数:</b></td><td>16人</td></tr>                         <tr><td><b>高优先级用户:</b></td><td>3人 (18.8%)</td></tr>                         <tr><td><b>平均情感指数:</b></td><td>+0.037</td></tr>                         <tr><td><b>平均影响力:</b></td><td>335.0</td></tr>                         <tr><td><b>推荐策略:</b></td><td>合作推广</td></tr>                     </table>                     <hr>                     <p style="margin: 5px 0; font-size: 11px; color: #666;">                         <b>控制建议:</b> 适度监控                     </p>                 </div>                 </div>`)[0];
+                popup_6b8e3ba31d4b7d17c27668891fadbc19.setContent(html_0e4a9446fd8c41d9d504995c137d0dd0);
+            
+        
+
+        circle_marker_98a3e29320160bf97a1acc0a8d8fb6df.bindPopup(popup_6b8e3ba31d4b7d17c27668891fadbc19)
+        ;
+
+        
+    
+    
+            var marker_b4f31a15f01645bfe3a10de01746541a = L.marker(
+                [36.6758, 117.0264],
+                {
+}
+            ).addTo(map_6476e7bcd62b1f41dfc32bf3d356f783);
+        
+    
+            var div_icon_2fada001ad236d2ae6d9917725ac4cd0 = L.divIcon({
+  "html": "\u003cdiv style=\"color: black; font-weight: bold; font-size: 11px; text-shadow: 1px 1px 1px white;\"\u003e\u5c71\u4e1c\u003c/div\u003e",
+  "iconSize": [50, 20],
+  "iconAnchor": [25, 10],
+  "className": "empty",
+});
+        
+    
+                marker_b4f31a15f01645bfe3a10de01746541a.setIcon(div_icon_2fada001ad236d2ae6d9917725ac4cd0);
+            
+    
+            var circle_marker_5f9d25d850bc9d9fddc0025d4476a38d = L.circleMarker(
+                [23.1291, 113.2644],
+                {"bubblingMouseEvents": true, "color": "green", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "green", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 21.0, "stroke": true, "weight": 3}
+            ).addTo(map_6476e7bcd62b1f41dfc32bf3d356f783);
+        
+    
+        var popup_e70fa4e43fffeb6da9ccdf07b8a57d6f = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_b8024143a718e2c423b2a441b241b0ba = $(`<div id="html_b8024143a718e2c423b2a441b241b0ba" style="width: 100.0%; height: 100.0%;">                 <div style="font-family: Arial; width: 280px;">                     <h3 style="margin-bottom: 10px; color: #333; text-align: center;">广东省粉丝分析</h3>                     <hr>                     <table style="width: 100%; border-collapse: collapse; font-size: 12px;">                         <tr><td><b>用户总数:</b></td><td>14人</td></tr>                         <tr><td><b>高优先级用户:</b></td><td>1人 (7.1%)</td></tr>                         <tr><td><b>平均情感指数:</b></td><td>+0.014</td></tr>                         <tr><td><b>平均影响力:</b></td><td>190.5</td></tr>                         <tr><td><b>推荐策略:</b></td><td>中性维护</td></tr>                     </table>                     <hr>                     <p style="margin: 5px 0; font-size: 11px; color: #666;">                         <b>控制建议:</b> 维持现状                     </p>                 </div>                 </div>`)[0];
+                popup_e70fa4e43fffeb6da9ccdf07b8a57d6f.setContent(html_b8024143a718e2c423b2a441b241b0ba);
+            
+        
+
+        circle_marker_5f9d25d850bc9d9fddc0025d4476a38d.bindPopup(popup_e70fa4e43fffeb6da9ccdf07b8a57d6f)
+        ;
+
+        
+    
+    
+            var marker_47070ce2ab17fa28fd78c5da9d16ff49 = L.marker(
+                [23.1291, 113.2644],
+                {
+}
+            ).addTo(map_6476e7bcd62b1f41dfc32bf3d356f783);
+        
+    
+            var div_icon_b5007f3ecf3167402b4d08969337f76c = L.divIcon({
+  "html": "\u003cdiv style=\"color: black; font-weight: bold; font-size: 11px; text-shadow: 1px 1px 1px white;\"\u003e\u5e7f\u4e1c\u003c/div\u003e",
+  "iconSize": [50, 20],
+  "iconAnchor": [25, 10],
+  "className": "empty",
+});
+        
+    
+                marker_47070ce2ab17fa28fd78c5da9d16ff49.setIcon(div_icon_b5007f3ecf3167402b4d08969337f76c);
+            
+    
+            var circle_marker_e9954829a7760c45cb76dd09a2f72f43 = L.circleMarker(
+                [28.676, 115.9092],
+                {"bubblingMouseEvents": true, "color": "green", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "green", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 3}
+            ).addTo(map_6476e7bcd62b1f41dfc32bf3d356f783);
+        
+    
+        var popup_576a602644d05ef7b4368c4a3800af83 = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_eeaa3ade55ae6d3fad5445f6aa81d989 = $(`<div id="html_eeaa3ade55ae6d3fad5445f6aa81d989" style="width: 100.0%; height: 100.0%;">                 <div style="font-family: Arial; width: 280px;">                     <h3 style="margin-bottom: 10px; color: #333; text-align: center;">江西省粉丝分析</h3>                     <hr>                     <table style="width: 100%; border-collapse: collapse; font-size: 12px;">                         <tr><td><b>用户总数:</b></td><td>3人</td></tr>                         <tr><td><b>高优先级用户:</b></td><td>0人 (0.0%)</td></tr>                         <tr><td><b>平均情感指数:</b></td><td>+0.061</td></tr>                         <tr><td><b>平均影响力:</b></td><td>156.0</td></tr>                         <tr><td><b>推荐策略:</b></td><td>中性维护</td></tr>                     </table>                     <hr>                     <p style="margin: 5px 0; font-size: 11px; color: #666;">                         <b>控制建议:</b> 维持现状                     </p>                 </div>                 </div>`)[0];
+                popup_576a602644d05ef7b4368c4a3800af83.setContent(html_eeaa3ade55ae6d3fad5445f6aa81d989);
+            
+        
+
+        circle_marker_e9954829a7760c45cb76dd09a2f72f43.bindPopup(popup_576a602644d05ef7b4368c4a3800af83)
+        ;
+
+        
+    
+    
+            var marker_938b19a8da8a4ad3b078bce90fce947a = L.marker(
+                [28.676, 115.9092],
+                {
+}
+            ).addTo(map_6476e7bcd62b1f41dfc32bf3d356f783);
+        
+    
+            var div_icon_d24a2ba2ee9ddca57cc13d966ed1dfa1 = L.divIcon({
+  "html": "\u003cdiv style=\"color: black; font-weight: bold; font-size: 11px; text-shadow: 1px 1px 1px white;\"\u003e\u6c5f\u897f\u003c/div\u003e",
+  "iconSize": [50, 20],
+  "iconAnchor": [25, 10],
+  "className": "empty",
+});
+        
+    
+                marker_938b19a8da8a4ad3b078bce90fce947a.setIcon(div_icon_d24a2ba2ee9ddca57cc13d966ed1dfa1);
+            
+    
+            var circle_marker_73addf7715bf3a0c280404cce6e1e320 = L.circleMarker(
+                [32.0617, 118.7778],
+                {"bubblingMouseEvents": true, "color": "green", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "green", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 13.5, "stroke": true, "weight": 3}
+            ).addTo(map_6476e7bcd62b1f41dfc32bf3d356f783);
+        
+    
+        var popup_4dcc71569f0b3b2de02deacbe7ed67a7 = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_943e2c23bed9f25181dddcd915103df4 = $(`<div id="html_943e2c23bed9f25181dddcd915103df4" style="width: 100.0%; height: 100.0%;">                 <div style="font-family: Arial; width: 280px;">                     <h3 style="margin-bottom: 10px; color: #333; text-align: center;">江苏省粉丝分析</h3>                     <hr>                     <table style="width: 100%; border-collapse: collapse; font-size: 12px;">                         <tr><td><b>用户总数:</b></td><td>9人</td></tr>                         <tr><td><b>高优先级用户:</b></td><td>0人 (0.0%)</td></tr>                         <tr><td><b>平均情感指数:</b></td><td>+0.141</td></tr>                         <tr><td><b>平均影响力:</b></td><td>300.1</td></tr>                         <tr><td><b>推荐策略:</b></td><td>合作推广</td></tr>                     </table>                     <hr>                     <p style="margin: 5px 0; font-size: 11px; color: #666;">                         <b>控制建议:</b> 维持现状                     </p>                 </div>                 </div>`)[0];
+                popup_4dcc71569f0b3b2de02deacbe7ed67a7.setContent(html_943e2c23bed9f25181dddcd915103df4);
+            
+        
+
+        circle_marker_73addf7715bf3a0c280404cce6e1e320.bindPopup(popup_4dcc71569f0b3b2de02deacbe7ed67a7)
+        ;
+
+        
+    
+    
+            var marker_60a8942f4c5fc4f2658f4bef33edf86f = L.marker(
+                [32.0617, 118.7778],
+                {
+}
+            ).addTo(map_6476e7bcd62b1f41dfc32bf3d356f783);
+        
+    
+            var div_icon_95fc95deb38e2a94684c8f2f1e844b4f = L.divIcon({
+  "html": "\u003cdiv style=\"color: black; font-weight: bold; font-size: 11px; text-shadow: 1px 1px 1px white;\"\u003e\u6c5f\u82cf\u003c/div\u003e",
+  "iconSize": [50, 20],
+  "iconAnchor": [25, 10],
+  "className": "empty",
+});
+        
+    
+                marker_60a8942f4c5fc4f2658f4bef33edf86f.setIcon(div_icon_95fc95deb38e2a94684c8f2f1e844b4f);
+            
+    
+            var circle_marker_6961003c844a74debecbd1ebd16d82e0 = L.circleMarker(
+                [31.8612, 117.2272],
+                {"bubblingMouseEvents": true, "color": "orange", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "orange", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 13.5, "stroke": true, "weight": 3}
+            ).addTo(map_6476e7bcd62b1f41dfc32bf3d356f783);
+        
+    
+        var popup_aee5625a068168fb939cd3ce680704f8 = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_e58dcced4cf550ab0e07f36907421014 = $(`<div id="html_e58dcced4cf550ab0e07f36907421014" style="width: 100.0%; height: 100.0%;">                 <div style="font-family: Arial; width: 280px;">                     <h3 style="margin-bottom: 10px; color: #333; text-align: center;">安徽省粉丝分析</h3>                     <hr>                     <table style="width: 100%; border-collapse: collapse; font-size: 12px;">                         <tr><td><b>用户总数:</b></td><td>9人</td></tr>                         <tr><td><b>高优先级用户:</b></td><td>1人 (11.1%)</td></tr>                         <tr><td><b>平均情感指数:</b></td><td>+0.024</td></tr>                         <tr><td><b>平均影响力:</b></td><td>694.3</td></tr>                         <tr><td><b>推荐策略:</b></td><td>重点监控</td></tr>                     </table>                     <hr>                     <p style="margin: 5px 0; font-size: 11px; color: #666;">                         <b>控制建议:</b> 适度监控                     </p>                 </div>                 </div>`)[0];
+                popup_aee5625a068168fb939cd3ce680704f8.setContent(html_e58dcced4cf550ab0e07f36907421014);
+            
+        
+
+        circle_marker_6961003c844a74debecbd1ebd16d82e0.bindPopup(popup_aee5625a068168fb939cd3ce680704f8)
+        ;
+
+        
+    
+    
+            var marker_e2848dd0221f7e3bb16e339a28faa3a1 = L.marker(
+                [31.8612, 117.2272],
+                {
+}
+            ).addTo(map_6476e7bcd62b1f41dfc32bf3d356f783);
+        
+    
+            var div_icon_9414f425c862a982eb246bd2454e165a = L.divIcon({
+  "html": "\u003cdiv style=\"color: black; font-weight: bold; font-size: 11px; text-shadow: 1px 1px 1px white;\"\u003e\u5b89\u5fbd\u003c/div\u003e",
+  "iconSize": [50, 20],
+  "iconAnchor": [25, 10],
+  "className": "empty",
+});
+        
+    
+                marker_e2848dd0221f7e3bb16e339a28faa3a1.setIcon(div_icon_9414f425c862a982eb246bd2454e165a);
+            
+    
+            var circle_marker_ac8c5b2bb47828af7c7dd532df46fca9 = L.circleMarker(
+                [41.8057, 123.4315],
+                {"bubblingMouseEvents": true, "color": "green", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "green", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 3}
+            ).addTo(map_6476e7bcd62b1f41dfc32bf3d356f783);
+        
+    
+        var popup_d2ccbc7aa91ca598cf6abb821990101c = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_df01329956a52cf1906544f78c63ea82 = $(`<div id="html_df01329956a52cf1906544f78c63ea82" style="width: 100.0%; height: 100.0%;">                 <div style="font-family: Arial; width: 280px;">                     <h3 style="margin-bottom: 10px; color: #333; text-align: center;">辽宁省粉丝分析</h3>                     <hr>                     <table style="width: 100%; border-collapse: collapse; font-size: 12px;">                         <tr><td><b>用户总数:</b></td><td>4人</td></tr>                         <tr><td><b>高优先级用户:</b></td><td>0人 (0.0%)</td></tr>                         <tr><td><b>平均情感指数:</b></td><td>+0.194</td></tr>                         <tr><td><b>平均影响力:</b></td><td>1657.6</td></tr>                         <tr><td><b>推荐策略:</b></td><td>中性维护</td></tr>                     </table>                     <hr>                     <p style="margin: 5px 0; font-size: 11px; color: #666;">                         <b>控制建议:</b> 维持现状                     </p>                 </div>                 </div>`)[0];
+                popup_d2ccbc7aa91ca598cf6abb821990101c.setContent(html_df01329956a52cf1906544f78c63ea82);
+            
+        
+
+        circle_marker_ac8c5b2bb47828af7c7dd532df46fca9.bindPopup(popup_d2ccbc7aa91ca598cf6abb821990101c)
+        ;
+
+        
+    
+    
+            var marker_304b8bffc19643618de7ae6104bdff0b = L.marker(
+                [41.8057, 123.4315],
+                {
+}
+            ).addTo(map_6476e7bcd62b1f41dfc32bf3d356f783);
+        
+    
+            var div_icon_6e5f2cbde83ea0f4e259df2b700f3054 = L.divIcon({
+  "html": "\u003cdiv style=\"color: black; font-weight: bold; font-size: 11px; text-shadow: 1px 1px 1px white;\"\u003e\u8fbd\u5b81\u003c/div\u003e",
+  "iconSize": [50, 20],
+  "iconAnchor": [25, 10],
+  "className": "empty",
+});
+        
+    
+                marker_304b8bffc19643618de7ae6104bdff0b.setIcon(div_icon_6e5f2cbde83ea0f4e259df2b700f3054);
+            
+    
+            var circle_marker_9d9aadf492989cc3c77ae066c4231fad = L.circleMarker(
+                [28.2282, 112.9388],
+                {"bubblingMouseEvents": true, "color": "green", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "green", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 3}
+            ).addTo(map_6476e7bcd62b1f41dfc32bf3d356f783);
+        
+    
+        var popup_eaa9795804c54f6b4d2aab0b9771e268 = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_27378c957ead6d4c94c50d178a0affd4 = $(`<div id="html_27378c957ead6d4c94c50d178a0affd4" style="width: 100.0%; height: 100.0%;">                 <div style="font-family: Arial; width: 280px;">                     <h3 style="margin-bottom: 10px; color: #333; text-align: center;">湖南省粉丝分析</h3>                     <hr>                     <table style="width: 100%; border-collapse: collapse; font-size: 12px;">                         <tr><td><b>用户总数:</b></td><td>5人</td></tr>                         <tr><td><b>高优先级用户:</b></td><td>0人 (0.0%)</td></tr>                         <tr><td><b>平均情感指数:</b></td><td>+0.087</td></tr>                         <tr><td><b>平均影响力:</b></td><td>637.8</td></tr>                         <tr><td><b>推荐策略:</b></td><td>中性维护</td></tr>                     </table>                     <hr>                     <p style="margin: 5px 0; font-size: 11px; color: #666;">                         <b>控制建议:</b> 维持现状                     </p>                 </div>                 </div>`)[0];
+                popup_eaa9795804c54f6b4d2aab0b9771e268.setContent(html_27378c957ead6d4c94c50d178a0affd4);
+            
+        
+
+        circle_marker_9d9aadf492989cc3c77ae066c4231fad.bindPopup(popup_eaa9795804c54f6b4d2aab0b9771e268)
+        ;
+
+        
+    
+    
+            var marker_5a927b03ddf7dcee0419afd87b238669 = L.marker(
+                [28.2282, 112.9388],
+                {
+}
+            ).addTo(map_6476e7bcd62b1f41dfc32bf3d356f783);
+        
+    
+            var div_icon_ce0ce1c6405fbd048c07744a6d10e4bd = L.divIcon({
+  "html": "\u003cdiv style=\"color: black; font-weight: bold; font-size: 11px; text-shadow: 1px 1px 1px white;\"\u003e\u6e56\u5357\u003c/div\u003e",
+  "iconSize": [50, 20],
+  "iconAnchor": [25, 10],
+  "className": "empty",
+});
+        
+    
+                marker_5a927b03ddf7dcee0419afd87b238669.setIcon(div_icon_ce0ce1c6405fbd048c07744a6d10e4bd);
+            
+    
+            var circle_marker_dd12e27bdfd80382599404ada8adbc25 = L.circleMarker(
+                [30.2741, 120.1551],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 16.5, "stroke": true, "weight": 3}
+            ).addTo(map_6476e7bcd62b1f41dfc32bf3d356f783);
+        
+    
+        var popup_368add13bfe72a04d229978ad6d38801 = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_4a35fc30a0bf9b1736eb49ec725d0a61 = $(`<div id="html_4a35fc30a0bf9b1736eb49ec725d0a61" style="width: 100.0%; height: 100.0%;">                 <div style="font-family: Arial; width: 280px;">                     <h3 style="margin-bottom: 10px; color: #333; text-align: center;">浙江省粉丝分析</h3>                     <hr>                     <table style="width: 100%; border-collapse: collapse; font-size: 12px;">                         <tr><td><b>用户总数:</b></td><td>11人</td></tr>                         <tr><td><b>高优先级用户:</b></td><td>5人 (45.5%)</td></tr>                         <tr><td><b>平均情感指数:</b></td><td>-0.133</td></tr>                         <tr><td><b>平均影响力:</b></td><td>522.0</td></tr>                         <tr><td><b>推荐策略:</b></td><td>重点监控</td></tr>                     </table>                     <hr>                     <p style="margin: 5px 0; font-size: 11px; color: #666;">                         <b>控制建议:</b> 重点关注                     </p>                 </div>                 </div>`)[0];
+                popup_368add13bfe72a04d229978ad6d38801.setContent(html_4a35fc30a0bf9b1736eb49ec725d0a61);
+            
+        
+
+        circle_marker_dd12e27bdfd80382599404ada8adbc25.bindPopup(popup_368add13bfe72a04d229978ad6d38801)
+        ;
+
+        
+    
+    
+            var marker_8a3ac7be8ecd74e5cac07f428dc3cbfc = L.marker(
+                [30.2741, 120.1551],
+                {
+}
+            ).addTo(map_6476e7bcd62b1f41dfc32bf3d356f783);
+        
+    
+            var div_icon_5b0d901fff1610f6caaebbe9e33e3c94 = L.divIcon({
+  "html": "\u003cdiv style=\"color: black; font-weight: bold; font-size: 11px; text-shadow: 1px 1px 1px white;\"\u003e\u6d59\u6c5f\u003c/div\u003e",
+  "iconSize": [50, 20],
+  "iconAnchor": [25, 10],
+  "className": "empty",
+});
+        
+    
+                marker_8a3ac7be8ecd74e5cac07f428dc3cbfc.setIcon(div_icon_5b0d901fff1610f6caaebbe9e33e3c94);
+            
+    
+            var circle_marker_5c03576a57b0da5ae245beead1538c70 = L.circleMarker(
+                [38.0428, 114.5149],
+                {"bubblingMouseEvents": true, "color": "orange", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "orange", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 10.5, "stroke": true, "weight": 3}
+            ).addTo(map_6476e7bcd62b1f41dfc32bf3d356f783);
+        
+    
+        var popup_1cf52e3fc129224bd432ca89752ba312 = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_8e4eadf3380661da1ba7f9dd983af2d4 = $(`<div id="html_8e4eadf3380661da1ba7f9dd983af2d4" style="width: 100.0%; height: 100.0%;">                 <div style="font-family: Arial; width: 280px;">                     <h3 style="margin-bottom: 10px; color: #333; text-align: center;">河北省粉丝分析</h3>                     <hr>                     <table style="width: 100%; border-collapse: collapse; font-size: 12px;">                         <tr><td><b>用户总数:</b></td><td>7人</td></tr>                         <tr><td><b>高优先级用户:</b></td><td>1人 (14.3%)</td></tr>                         <tr><td><b>平均情感指数:</b></td><td>+0.035</td></tr>                         <tr><td><b>平均影响力:</b></td><td>331.7</td></tr>                         <tr><td><b>推荐策略:</b></td><td>中性维护</td></tr>                     </table>                     <hr>                     <p style="margin: 5px 0; font-size: 11px; color: #666;">                         <b>控制建议:</b> 适度监控                     </p>                 </div>                 </div>`)[0];
+                popup_1cf52e3fc129224bd432ca89752ba312.setContent(html_8e4eadf3380661da1ba7f9dd983af2d4);
+            
+        
+
+        circle_marker_5c03576a57b0da5ae245beead1538c70.bindPopup(popup_1cf52e3fc129224bd432ca89752ba312)
+        ;
+
+        
+    
+    
+            var marker_11750090fc94e1c91b77ab9e93e16be5 = L.marker(
+                [38.0428, 114.5149],
+                {
+}
+            ).addTo(map_6476e7bcd62b1f41dfc32bf3d356f783);
+        
+    
+            var div_icon_3e4bde000f3b5f56b33530d7f69d4fbe = L.divIcon({
+  "html": "\u003cdiv style=\"color: black; font-weight: bold; font-size: 11px; text-shadow: 1px 1px 1px white;\"\u003e\u6cb3\u5317\u003c/div\u003e",
+  "iconSize": [50, 20],
+  "iconAnchor": [25, 10],
+  "className": "empty",
+});
+        
+    
+                marker_11750090fc94e1c91b77ab9e93e16be5.setIcon(div_icon_3e4bde000f3b5f56b33530d7f69d4fbe);
+            
+    
+            var circle_marker_1b3789440cc755bd9ceb22b14910c72b = L.circleMarker(
+                [39.9042, 116.4074],
+                {"bubblingMouseEvents": true, "color": "green", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "green", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 3}
+            ).addTo(map_6476e7bcd62b1f41dfc32bf3d356f783);
+        
+    
+        var popup_e0562e3a3d2d08465e8b8e77e0a4cf98 = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_e2840469501118c0ea9a7af433c24ac3 = $(`<div id="html_e2840469501118c0ea9a7af433c24ac3" style="width: 100.0%; height: 100.0%;">                 <div style="font-family: Arial; width: 280px;">                     <h3 style="margin-bottom: 10px; color: #333; text-align: center;">北京省粉丝分析</h3>                     <hr>                     <table style="width: 100%; border-collapse: collapse; font-size: 12px;">                         <tr><td><b>用户总数:</b></td><td>5人</td></tr>                         <tr><td><b>高优先级用户:</b></td><td>0人 (0.0%)</td></tr>                         <tr><td><b>平均情感指数:</b></td><td>+0.039</td></tr>                         <tr><td><b>平均影响力:</b></td><td>2018.5</td></tr>                         <tr><td><b>推荐策略:</b></td><td>中性维护</td></tr>                     </table>                     <hr>                     <p style="margin: 5px 0; font-size: 11px; color: #666;">                         <b>控制建议:</b> 维持现状                     </p>                 </div>                 </div>`)[0];
+                popup_e0562e3a3d2d08465e8b8e77e0a4cf98.setContent(html_e2840469501118c0ea9a7af433c24ac3);
+            
+        
+
+        circle_marker_1b3789440cc755bd9ceb22b14910c72b.bindPopup(popup_e0562e3a3d2d08465e8b8e77e0a4cf98)
+        ;
+
+        
+    
+    
+            var marker_50a3e5bec6cbf48d089110e44211b8b6 = L.marker(
+                [39.9042, 116.4074],
+                {
+}
+            ).addTo(map_6476e7bcd62b1f41dfc32bf3d356f783);
+        
+    
+            var div_icon_eacb0d993c8436a199c8a28173f67413 = L.divIcon({
+  "html": "\u003cdiv style=\"color: black; font-weight: bold; font-size: 11px; text-shadow: 1px 1px 1px white;\"\u003e\u5317\u4eac\u003c/div\u003e",
+  "iconSize": [50, 20],
+  "iconAnchor": [25, 10],
+  "className": "empty",
+});
+        
+    
+                marker_50a3e5bec6cbf48d089110e44211b8b6.setIcon(div_icon_eacb0d993c8436a199c8a28173f67413);
+            
+    
+            var circle_marker_524139d2d1f9227adabcd90a280d3b58 = L.circleMarker(
+                [31.2304, 121.4737],
+                {"bubblingMouseEvents": true, "color": "orange", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "orange", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 12.0, "stroke": true, "weight": 3}
+            ).addTo(map_6476e7bcd62b1f41dfc32bf3d356f783);
+        
+    
+        var popup_7a7eb4bf75445ae5647cf4522721f268 = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_7cf97f5bfb31e2c2acf80a63aa3269a1 = $(`<div id="html_7cf97f5bfb31e2c2acf80a63aa3269a1" style="width: 100.0%; height: 100.0%;">                 <div style="font-family: Arial; width: 280px;">                     <h3 style="margin-bottom: 10px; color: #333; text-align: center;">上海省粉丝分析</h3>                     <hr>                     <table style="width: 100%; border-collapse: collapse; font-size: 12px;">                         <tr><td><b>用户总数:</b></td><td>8人</td></tr>                         <tr><td><b>高优先级用户:</b></td><td>1人 (12.5%)</td></tr>                         <tr><td><b>平均情感指数:</b></td><td>+0.049</td></tr>                         <tr><td><b>平均影响力:</b></td><td>780.1</td></tr>                         <tr><td><b>推荐策略:</b></td><td>合作推广</td></tr>                     </table>                     <hr>                     <p style="margin: 5px 0; font-size: 11px; color: #666;">                         <b>控制建议:</b> 适度监控                     </p>                 </div>                 </div>`)[0];
+                popup_7a7eb4bf75445ae5647cf4522721f268.setContent(html_7cf97f5bfb31e2c2acf80a63aa3269a1);
+            
+        
+
+        circle_marker_524139d2d1f9227adabcd90a280d3b58.bindPopup(popup_7a7eb4bf75445ae5647cf4522721f268)
+        ;
+
+        
+    
+    
+            var marker_aaf579892b97f716d84ea9779e1593ad = L.marker(
+                [31.2304, 121.4737],
+                {
+}
+            ).addTo(map_6476e7bcd62b1f41dfc32bf3d356f783);
+        
+    
+            var div_icon_dae209a71c6b9cf413bb626b15342aa8 = L.divIcon({
+  "html": "\u003cdiv style=\"color: black; font-weight: bold; font-size: 11px; text-shadow: 1px 1px 1px white;\"\u003e\u4e0a\u6d77\u003c/div\u003e",
+  "iconSize": [50, 20],
+  "iconAnchor": [25, 10],
+  "className": "empty",
+});
+        
+    
+                marker_aaf579892b97f716d84ea9779e1593ad.setIcon(div_icon_dae209a71c6b9cf413bb626b15342aa8);
+            
+    
+            var circle_marker_d46ab4bd06548d697daa6b344981eadf = L.circleMarker(
+                [30.6171, 104.0668],
+                {"bubblingMouseEvents": true, "color": "green", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "green", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 12.0, "stroke": true, "weight": 3}
+            ).addTo(map_6476e7bcd62b1f41dfc32bf3d356f783);
+        
+    
+        var popup_ad7cc29d547ac250ce3dd514d67a3273 = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_66670827e2a3c26ad76450c4d6927c2e = $(`<div id="html_66670827e2a3c26ad76450c4d6927c2e" style="width: 100.0%; height: 100.0%;">                 <div style="font-family: Arial; width: 280px;">                     <h3 style="margin-bottom: 10px; color: #333; text-align: center;">四川省粉丝分析</h3>                     <hr>                     <table style="width: 100%; border-collapse: collapse; font-size: 12px;">                         <tr><td><b>用户总数:</b></td><td>8人</td></tr>                         <tr><td><b>高优先级用户:</b></td><td>0人 (0.0%)</td></tr>                         <tr><td><b>平均情感指数:</b></td><td>+0.311</td></tr>                         <tr><td><b>平均影响力:</b></td><td>246.6</td></tr>                         <tr><td><b>推荐策略:</b></td><td>合作推广</td></tr>                     </table>                     <hr>                     <p style="margin: 5px 0; font-size: 11px; color: #666;">                         <b>控制建议:</b> 维持现状                     </p>                 </div>                 </div>`)[0];
+                popup_ad7cc29d547ac250ce3dd514d67a3273.setContent(html_66670827e2a3c26ad76450c4d6927c2e);
+            
+        
+
+        circle_marker_d46ab4bd06548d697daa6b344981eadf.bindPopup(popup_ad7cc29d547ac250ce3dd514d67a3273)
+        ;
+
+        
+    
+    
+            var marker_a6df93d568a6ed1a5a1c2b83ab75e4a5 = L.marker(
+                [30.6171, 104.0668],
+                {
+}
+            ).addTo(map_6476e7bcd62b1f41dfc32bf3d356f783);
+        
+    
+            var div_icon_796b63395f63c703afbe40ef0aded97b = L.divIcon({
+  "html": "\u003cdiv style=\"color: black; font-weight: bold; font-size: 11px; text-shadow: 1px 1px 1px white;\"\u003e\u56db\u5ddd\u003c/div\u003e",
+  "iconSize": [50, 20],
+  "iconAnchor": [25, 10],
+  "className": "empty",
+});
+        
+    
+                marker_a6df93d568a6ed1a5a1c2b83ab75e4a5.setIcon(div_icon_796b63395f63c703afbe40ef0aded97b);
+            
+    
+            var circle_marker_e1bcec4960947caacfc236864bdf69b9 = L.circleMarker(
+                [26.0789, 119.2965],
+                {"bubblingMouseEvents": true, "color": "green", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "green", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 3}
+            ).addTo(map_6476e7bcd62b1f41dfc32bf3d356f783);
+        
+    
+        var popup_15d340752cd18b8c7010804ebbe23960 = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_a224138070755c221653816aa1419079 = $(`<div id="html_a224138070755c221653816aa1419079" style="width: 100.0%; height: 100.0%;">                 <div style="font-family: Arial; width: 280px;">                     <h3 style="margin-bottom: 10px; color: #333; text-align: center;">福建省粉丝分析</h3>                     <hr>                     <table style="width: 100%; border-collapse: collapse; font-size: 12px;">                         <tr><td><b>用户总数:</b></td><td>5人</td></tr>                         <tr><td><b>高优先级用户:</b></td><td>0人 (0.0%)</td></tr>                         <tr><td><b>平均情感指数:</b></td><td>-0.117</td></tr>                         <tr><td><b>平均影响力:</b></td><td>932.7</td></tr>                         <tr><td><b>推荐策略:</b></td><td>重点监控</td></tr>                     </table>                     <hr>                     <p style="margin: 5px 0; font-size: 11px; color: #666;">                         <b>控制建议:</b> 维持现状                     </p>                 </div>                 </div>`)[0];
+                popup_15d340752cd18b8c7010804ebbe23960.setContent(html_a224138070755c221653816aa1419079);
+            
+        
+
+        circle_marker_e1bcec4960947caacfc236864bdf69b9.bindPopup(popup_15d340752cd18b8c7010804ebbe23960)
+        ;
+
+        
+    
+    
+            var marker_d04833b0a09a2ef0cb87d1d65dabf7c8 = L.marker(
+                [26.0789, 119.2965],
+                {
+}
+            ).addTo(map_6476e7bcd62b1f41dfc32bf3d356f783);
+        
+    
+            var div_icon_4e6f15f5a96b0142e17a628624581a8a = L.divIcon({
+  "html": "\u003cdiv style=\"color: black; font-weight: bold; font-size: 11px; text-shadow: 1px 1px 1px white;\"\u003e\u798f\u5efa\u003c/div\u003e",
+  "iconSize": [50, 20],
+  "iconAnchor": [25, 10],
+  "className": "empty",
+});
+        
+    
+                marker_d04833b0a09a2ef0cb87d1d65dabf7c8.setIcon(div_icon_4e6f15f5a96b0142e17a628624581a8a);
+            
+    
+            var circle_marker_26a4c3e4ce36e363da11eac9b54abd13 = L.circleMarker(
+                [34.7466, 113.6254],
+                {"bubblingMouseEvents": true, "color": "green", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "green", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 18.0, "stroke": true, "weight": 3}
+            ).addTo(map_6476e7bcd62b1f41dfc32bf3d356f783);
+        
+    
+        var popup_3eddab77a0c621a7e7a7ed38252f3b37 = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_846cfb5c0466353462f5ec84f291a747 = $(`<div id="html_846cfb5c0466353462f5ec84f291a747" style="width: 100.0%; height: 100.0%;">                 <div style="font-family: Arial; width: 280px;">                     <h3 style="margin-bottom: 10px; color: #333; text-align: center;">河南省粉丝分析</h3>                     <hr>                     <table style="width: 100%; border-collapse: collapse; font-size: 12px;">                         <tr><td><b>用户总数:</b></td><td>12人</td></tr>                         <tr><td><b>高优先级用户:</b></td><td>0人 (0.0%)</td></tr>                         <tr><td><b>平均情感指数:</b></td><td>+0.250</td></tr>                         <tr><td><b>平均影响力:</b></td><td>417.0</td></tr>                         <tr><td><b>推荐策略:</b></td><td>合作推广</td></tr>                     </table>                     <hr>                     <p style="margin: 5px 0; font-size: 11px; color: #666;">                         <b>控制建议:</b> 维持现状                     </p>                 </div>                 </div>`)[0];
+                popup_3eddab77a0c621a7e7a7ed38252f3b37.setContent(html_846cfb5c0466353462f5ec84f291a747);
+            
+        
+
+        circle_marker_26a4c3e4ce36e363da11eac9b54abd13.bindPopup(popup_3eddab77a0c621a7e7a7ed38252f3b37)
+        ;
+
+        
+    
+    
+            var marker_f7f86025e0880ed33c86519977e789c0 = L.marker(
+                [34.7466, 113.6254],
+                {
+}
+            ).addTo(map_6476e7bcd62b1f41dfc32bf3d356f783);
+        
+    
+            var div_icon_95b7f06b191cb7af0e2cf87ab60140e8 = L.divIcon({
+  "html": "\u003cdiv style=\"color: black; font-weight: bold; font-size: 11px; text-shadow: 1px 1px 1px white;\"\u003e\u6cb3\u5357\u003c/div\u003e",
+  "iconSize": [50, 20],
+  "iconAnchor": [25, 10],
+  "className": "empty",
+});
+        
+    
+                marker_f7f86025e0880ed33c86519977e789c0.setIcon(div_icon_95b7f06b191cb7af0e2cf87ab60140e8);
+            
+    
+            var circle_marker_41980d9b8dcdede1240b8e1ee1fc869b = L.circleMarker(
+                [29.5647, 106.5507],
+                {"bubblingMouseEvents": true, "color": "green", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "green", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 3}
+            ).addTo(map_6476e7bcd62b1f41dfc32bf3d356f783);
+        
+    
+        var popup_745232ee014cc151be60a0252cfdebff = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_257ec279a89200c7d6cdeb8628aa5653 = $(`<div id="html_257ec279a89200c7d6cdeb8628aa5653" style="width: 100.0%; height: 100.0%;">                 <div style="font-family: Arial; width: 280px;">                     <h3 style="margin-bottom: 10px; color: #333; text-align: center;">重庆省粉丝分析</h3>                     <hr>                     <table style="width: 100%; border-collapse: collapse; font-size: 12px;">                         <tr><td><b>用户总数:</b></td><td>3人</td></tr>                         <tr><td><b>高优先级用户:</b></td><td>0人 (0.0%)</td></tr>                         <tr><td><b>平均情感指数:</b></td><td>+0.113</td></tr>                         <tr><td><b>平均影响力:</b></td><td>129.4</td></tr>                         <tr><td><b>推荐策略:</b></td><td>正面强化</td></tr>                     </table>                     <hr>                     <p style="margin: 5px 0; font-size: 11px; color: #666;">                         <b>控制建议:</b> 维持现状                     </p>                 </div>                 </div>`)[0];
+                popup_745232ee014cc151be60a0252cfdebff.setContent(html_257ec279a89200c7d6cdeb8628aa5653);
+            
+        
+
+        circle_marker_41980d9b8dcdede1240b8e1ee1fc869b.bindPopup(popup_745232ee014cc151be60a0252cfdebff)
+        ;
+
+        
+    
+    
+            var marker_2c1178434bc70d080a5cdff055f3f84c = L.marker(
+                [29.5647, 106.5507],
+                {
+}
+            ).addTo(map_6476e7bcd62b1f41dfc32bf3d356f783);
+        
+    
+            var div_icon_f1ec4a1abdb0dbf543eb2c6cd986a7a2 = L.divIcon({
+  "html": "\u003cdiv style=\"color: black; font-weight: bold; font-size: 11px; text-shadow: 1px 1px 1px white;\"\u003e\u91cd\u5e86\u003c/div\u003e",
+  "iconSize": [50, 20],
+  "iconAnchor": [25, 10],
+  "className": "empty",
+});
+        
+    
+                marker_2c1178434bc70d080a5cdff055f3f84c.setIcon(div_icon_f1ec4a1abdb0dbf543eb2c6cd986a7a2);
+            
+    
+            var circle_marker_1dc71da85453809ed9770baf6056f308 = L.circleMarker(
+                [37.857, 112.5489],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 3}
+            ).addTo(map_6476e7bcd62b1f41dfc32bf3d356f783);
+        
+    
+        var popup_f68051c2aa490665051bbc0cdcbb57b2 = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_21621b0998a43248454ab10bdeb4e15c = $(`<div id="html_21621b0998a43248454ab10bdeb4e15c" style="width: 100.0%; height: 100.0%;">                 <div style="font-family: Arial; width: 280px;">                     <h3 style="margin-bottom: 10px; color: #333; text-align: center;">山西省粉丝分析</h3>                     <hr>                     <table style="width: 100%; border-collapse: collapse; font-size: 12px;">                         <tr><td><b>用户总数:</b></td><td>3人</td></tr>                         <tr><td><b>高优先级用户:</b></td><td>1人 (33.3%)</td></tr>                         <tr><td><b>平均情感指数:</b></td><td>+0.083</td></tr>                         <tr><td><b>平均影响力:</b></td><td>921.2</td></tr>                         <tr><td><b>推荐策略:</b></td><td>合作推广</td></tr>                     </table>                     <hr>                     <p style="margin: 5px 0; font-size: 11px; color: #666;">                         <b>控制建议:</b> 重点关注                     </p>                 </div>                 </div>`)[0];
+                popup_f68051c2aa490665051bbc0cdcbb57b2.setContent(html_21621b0998a43248454ab10bdeb4e15c);
+            
+        
+
+        circle_marker_1dc71da85453809ed9770baf6056f308.bindPopup(popup_f68051c2aa490665051bbc0cdcbb57b2)
+        ;
+
+        
+    
+    
+            var marker_c2dfcafb409ecdc5649911c2e052037e = L.marker(
+                [37.857, 112.5489],
+                {
+}
+            ).addTo(map_6476e7bcd62b1f41dfc32bf3d356f783);
+        
+    
+            var div_icon_26efc19bb34c36db9af9637b36e0a021 = L.divIcon({
+  "html": "\u003cdiv style=\"color: black; font-weight: bold; font-size: 11px; text-shadow: 1px 1px 1px white;\"\u003e\u5c71\u897f\u003c/div\u003e",
+  "iconSize": [50, 20],
+  "iconAnchor": [25, 10],
+  "className": "empty",
+});
+        
+    
+                marker_c2dfcafb409ecdc5649911c2e052037e.setIcon(div_icon_26efc19bb34c36db9af9637b36e0a021);
+            
+    
+            var circle_marker_fa5da77f897b1b020b67dd6e6de696eb = L.circleMarker(
+                [30.5928, 114.3058],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 3}
+            ).addTo(map_6476e7bcd62b1f41dfc32bf3d356f783);
+        
+    
+        var popup_8754fb69aa42ae379f6b877f3823d611 = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_177108614082f5b014d8c3f1340dac89 = $(`<div id="html_177108614082f5b014d8c3f1340dac89" style="width: 100.0%; height: 100.0%;">                 <div style="font-family: Arial; width: 280px;">                     <h3 style="margin-bottom: 10px; color: #333; text-align: center;">湖北省粉丝分析</h3>                     <hr>                     <table style="width: 100%; border-collapse: collapse; font-size: 12px;">                         <tr><td><b>用户总数:</b></td><td>3人</td></tr>                         <tr><td><b>高优先级用户:</b></td><td>1人 (33.3%)</td></tr>                         <tr><td><b>平均情感指数:</b></td><td>-0.138</td></tr>                         <tr><td><b>平均影响力:</b></td><td>222.1</td></tr>                         <tr><td><b>推荐策略:</b></td><td>重点监控</td></tr>                     </table>                     <hr>                     <p style="margin: 5px 0; font-size: 11px; color: #666;">                         <b>控制建议:</b> 重点关注                     </p>                 </div>                 </div>`)[0];
+                popup_8754fb69aa42ae379f6b877f3823d611.setContent(html_177108614082f5b014d8c3f1340dac89);
+            
+        
+
+        circle_marker_fa5da77f897b1b020b67dd6e6de696eb.bindPopup(popup_8754fb69aa42ae379f6b877f3823d611)
+        ;
+
+        
+    
+    
+            var marker_32ecf72f0e095fc459adff62473f6170 = L.marker(
+                [30.5928, 114.3058],
+                {
+}
+            ).addTo(map_6476e7bcd62b1f41dfc32bf3d356f783);
+        
+    
+            var div_icon_1b03ae16215c9de1ab1624f013e4afea = L.divIcon({
+  "html": "\u003cdiv style=\"color: black; font-weight: bold; font-size: 11px; text-shadow: 1px 1px 1px white;\"\u003e\u6e56\u5317\u003c/div\u003e",
+  "iconSize": [50, 20],
+  "iconAnchor": [25, 10],
+  "className": "empty",
+});
+        
+    
+                marker_32ecf72f0e095fc459adff62473f6170.setIcon(div_icon_1b03ae16215c9de1ab1624f013e4afea);
+            
+    
+            var heat_map_bba4c7534e57af1d50067dcee73cbcc9 = L.heatLayer(
+                [[36.6758, 117.0264, 18.75], [23.1291, 113.2644, 7.142857142857142], [28.676, 115.9092, 0.0], [32.0617, 118.7778, 0.0], [31.8612, 117.2272, 11.11111111111111], [41.8057, 123.4315, 0.0], [28.2282, 112.9388, 0.0], [30.2741, 120.1551, 45.45454545454545], [38.0428, 114.5149, 14.285714285714285], [39.9042, 116.4074, 0.0], [31.2304, 121.4737, 12.5], [30.6171, 104.0668, 0.0], [26.0789, 119.2965, 0.0], [34.7466, 113.6254, 0.0], [29.5647, 106.5507, 0.0], [37.857, 112.5489, 33.33333333333333], [30.5928, 114.3058, 33.33333333333333]],
+                {
+  "minOpacity": 0.5,
+  "maxZoom": 1,
+  "radius": 40,
+  "blur": 25,
+}
+            );
+        
+    
+            heat_map_bba4c7534e57af1d50067dcee73cbcc9.addTo(map_6476e7bcd62b1f41dfc32bf3d356f783);
+        
+</script>
+</html>
